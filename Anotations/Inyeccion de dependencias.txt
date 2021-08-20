@@ -1,0 +1,8 @@
+Inyeccion de dependencias para poder usar la clase y la interfaz.
+IRepositories
+Repositories
+
+Startup.cs
+services.AddScoped<ICategoriaRepository,CategoriaRepository>();
+
+Para asociar Categoria con CategoriaDTO se usa automapper

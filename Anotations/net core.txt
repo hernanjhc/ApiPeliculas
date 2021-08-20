@@ -1,0 +1,87 @@
+1 - habilitar https desde powershell
+instalar certificado
+dotnet dev-certs https --trust
+
+2 - se instala app relacionadas a web (plantillas preinstaladas)
+	razor page								page			--> pagina comun
+	MVC viewsImports						viewsImports	--> mvc debe ser extendible... pa reutilizar cod
+	MVC viewsStart							viewsstart
+	ASP.NET Core Empty						web
+	ASP.NET Core Web App (MVC)				mvc
+	ASP.NET Core Web App 					razor
+	ASP.NET Core with Angular				angular
+	ASP.NET Core with React.js				react
+	ASP.NET Core with React.js and redux	reactredux
+	Razor Class Library
+	razorclasslib
+	ASP.NET Core Web API					webapi
+		
+3 - crear app web
+	dotnet new web -o HolaMundo	--> web vacia
+	dotnet new mvc -o HolaMundoMVC	--> web mvc
+
+4 - Estructura de directorios
+	info sobre archivos creados por el proyecto
+	
+5 - Convenciones, como describir objetos
+	ASP.Net Core ruta app --> Controlador/Acción
+	
+	Mostrar VISTA.
+
+6 - Razor	
+	inicia con @
+	
+	Es debilmente tipado. Se crean variables al vuelo...
+	Solucion a debilmente tipado.
+	agregar @model Escuela en primera linea.
+	 En algunos casos, en la vista conviene usar
+	 vistas debilmente tipadas(Sin @model xxxx)
+	 En caso que exista herencia de clases.
+	 
+	CaseSensitive, si es que distingue mayúsculas de minúsculas.
+	
+	ViewBag y ViewData se envian datos a la vista
+	desde el controlador o la vista en la que se está trabajando.
+	
+	ViewBag y ViewData hacen refencia al mismo diccionario
+	ViewBag.CosaDinamica = "La Monja";
+	
+	<p><i>@ViewBag.CosaDinamica</i></p>
+	<p><i>@ViewData["CosaDinamica"] </i></p>
+	
+	Si se define Layout en una vista,
+	sobreescribe la _Layout definida para todo el proyecto.
+	
+7 - Vistas Parciales
+	
+@*Usa Tag Helper: extiende html*@
+<partial name="AsignaturaSimple" />
+@*Por convencion si no paso modelo a vista parcial, asume
+    que usa mismo modelo*@
+@*<partial name="AsignaturaSimple" model="nombre de modelo..."/>*@
+
+8 - Mostrar otras listas de objetos
+	Mostrar los datos en una tabla
+	Previamente 
+	@foreach (var asignatura in Model)
+	{
+		<partial name="ObjetoEscuelaSimple" model="asignatura"/>
+	}
+	
+9 - Actualización de Bootstrap
+	
+10 - Entity Framework Core
+	Object Relational Model
+	transforma en objetos, lo que esta en la BD
+	
+	EF...InMemory
+	EF...SqlServer
+	
+	Esta instalado? --> Ver proyectoxxx.csproj
+	Como se conecta ent...inmemory?
+	Crear clase
+	EscuelaContext : DbContext
+	
+	Cargar info en memoria
+	
+	

@@ -1,0 +1,14 @@
+Para asociar Categoria con CategoriaDTO se usa automapper
+
+desde nuget automapper
+automapper.extensions.microsoft.dependencyinjection
+
+Crear public class PeliculasMapper : Profile
+public PeliculasMapper()
+        {
+            CreateMap<Categoria, CategoriaDTO>().ReverseMap();
+        }
+		
+Añadir automapper en startup
+/*Añade automapper*/
+            services.AddAutoMapper(typeof(PeliculasMappers));		

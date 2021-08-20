@@ -1,0 +1,32 @@
+Conexión DB
+
+appsetting json
+"ConnectionStrings": {
+    "DefaultConnection": "Server=PCV-VS2019\\SQLEXPRESS;Database=PeliculasApiv1;User ID=jhc;Password=123456;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },	
+  
+Startup.cs
+/*Cadena conexion*/
+            services.AddDbContext<ApplicationDbContext>(Options => Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));  
+			
+Crear ApplicationDbContext
+folder data
+clase ApplicationDbContext
+//DbSet se requiere para crear las tablas...
+        public DbSet<Categoria> Categoria { get; set; }
+		
+		
+agrega de nuget entityframeworkcore
+
+nuget
+microsoft entityframework sqlserver
+
+//Para migrar. Consola para el administrador de paquetes
+        //add-migration MigracionInicial
+        //error la primera vez. Instalar, microsoft.entityframeworkcore.tools
+		
+		Ver la carpeta Migrations. Ahi se detalla la migracion.
+		
+En este momento no se crea la base.
+para ellos se debe correr en consola de administrador de paquetes
+update-database

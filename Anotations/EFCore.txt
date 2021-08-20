@@ -1,0 +1,21 @@
+Integrar Entity Framework en .Net Core 2 de una base de datos existente | Visual Studio
+https://www.youtube.com/watch?v=G5E0Wj3pz3A
+
+Instalar desde nuget 
+Proveeedor de datos:	Microsoft.EntityFrameworkCore.SqlServer
+Herramientas con comandos para crear tablas de BD:
+						Microsoft.EntityFrameworkCore.SqlServer tools
+Add	-->	Carpeta Models
+Herramientas	Consola de administrador de paqeutes
+usar scaffold para mapear la BD							
+
+Scaffold-DBContext "Server=PCV-VS2019;Database=token;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+con usuario y contra
+Scaffold-DBContext "Server=PCV-VS2019;Database=token;usr=jhc;;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+
+https://www.rafaelacosta.net/Blog/2019/5/20/json-web-token-seguridad-en-servicios-web-api-de-net-core
+
+
+Actualizar
+Scaffold-DBContext "Server=PCV-VS2019;Database=token;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -force
