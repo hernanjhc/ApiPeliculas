@@ -1,4 +1,5 @@
-﻿using ApiPeliculas.Models.DTOs;
+﻿using ApiPeliculas.Models;
+using ApiPeliculas.Models.DTOs;
 using ApiPeliculas.Repositories.IRepositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +48,31 @@ namespace ApiPeliculas.Controllers
             var itemCategoriaDto = _mapper.Map<CategoriaDTO>(itemCategoria);
 
             return Ok(itemCategoriaDto);
+        }
+
+        [Route("CrearCategoria")]
+        //FromBody obtiene lo que llega en el body del envio.
+        [HttpPost]
+        public IActionResult CrearCategoria([FromBody] CategoriaDTO categoriaDTO)
+        {
+            if (categoriaDTO==null)
+            {
+                return BadRequest(ModelState);
+            }
+            if (_ctRepo.ExisteCategoria(categoriaDTO.Nombre))
+            {
+                ModelState.AddModelError("", "La categoria ya existe...");
+                return StatusCode(404, ModelState);
+            }
+
+            var categoria = _mapper.Map<Categoria>(categoriaDTO);
+            if (!_ctRepo.CrearCategoria(categoria))
+            {
+                ModelState.AddModelError("", $"Algo salió mal guardando el registro {categoria.Nombre}");
+                return StatusCode(500, ModelState);
+            }
+            //http code 201, y devuelve último registro creado.
+            return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id}, categoria);
         }
     }
 }
