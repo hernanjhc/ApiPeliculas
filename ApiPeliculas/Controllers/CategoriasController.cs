@@ -74,5 +74,24 @@ namespace ApiPeliculas.Controllers
             //http code 201, y devuelve último registro creado.
             return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id}, categoria);
         }
+
+        [HttpPatch]
+        public IActionResult ActualizaCategoria(int categoriaId, [FromBody] CategoriaDTO categoriaDTO)
+        {
+            if (categoriaDTO == null || categoriaId != categoriaDTO.Id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var categoria = _mapper.Map<Categoria>(categoriaDTO);
+            if (!_ctRepo.ActualizarCategoria(categoria))
+            {
+                ModelState.AddModelError("", $"Algo salió mal actualizando el registro {categoria.Nombre}");
+                return StatusCode(500, ModelState);
+            }
+
+            //http ode 204. Server job ok
+            return NoContent();
+        }
     }
 }
