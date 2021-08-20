@@ -75,8 +75,8 @@ namespace ApiPeliculas.Controllers
             return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id}, categoria);
         }
 
-        [HttpPatch]
-        public IActionResult ActualizaCategoria(int categoriaId, [FromBody] CategoriaDTO categoriaDTO)
+        [HttpPatch("{categoriaId:int}", Name = "ActualizarCategoria")]
+        public IActionResult ActualizarCategoria(int categoriaId, [FromBody] CategoriaDTO categoriaDTO)
         {
             if (categoriaDTO == null || categoriaId != categoriaDTO.Id)
             {
@@ -87,6 +87,25 @@ namespace ApiPeliculas.Controllers
             if (!_ctRepo.ActualizarCategoria(categoria))
             {
                 ModelState.AddModelError("", $"Algo salió mal actualizando el registro {categoria.Nombre}");
+                return StatusCode(500, ModelState);
+            }
+
+            //http ode 204. Server job ok
+            return NoContent();
+        }
+
+        [HttpDelete("{categoriaId:int}", Name = "BorrarCategoria")]
+        public IActionResult BorrarCategoria(int categoriaId)
+        {
+            if (!_ctRepo.ExisteCategoria(categoriaId))
+            {
+                return NotFound();
+            }
+
+            var categoria = _ctRepo.GetCategoria(categoriaId);
+            if (!_ctRepo.BorrarCategoria(categoria))
+            {
+                ModelState.AddModelError("", $"Algo salió mal borrando el registro {categoria.Nombre}");
                 return StatusCode(500, ModelState);
             }
 
