@@ -1,0 +1,20 @@
+Agregar Peliculas
+
+Crear modelo peliculas
+Modificar ApplicationDbContext
+public DbSet<Pelicula> Pelicula { get; set; }
+
+en consola de administrador de paquetes
+add-migration CreacionTablaPelicula
+o
+EntityFrameworkCore\add-migration CreacionTablaPelicula
+
+para actualizar database
+update-database
+o
+EntityFrameworkCore\Update-Database
+
+AGREGAR DTO pelicula
+
+--> Se agrego Repositorio e IRepositorio...
+actualizar Startup.cs
