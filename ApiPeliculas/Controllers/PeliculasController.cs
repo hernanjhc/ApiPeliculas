@@ -2,10 +2,12 @@
 using ApiPeliculas.Models.DTOs;
 using ApiPeliculas.Repositories.IRepositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,11 +19,13 @@ namespace ApiPeliculas.Controllers
     {
         private readonly IPeliculaRepository _ctPeli;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public PeliculasController(IPeliculaRepository ctPeli, IMapper mapper)
+        public PeliculasController(IPeliculaRepository ctPeli, IMapper mapper, IWebHostEnvironment hostingEnvironment)
         {
             _ctPeli = ctPeli;
             _mapper = mapper;
+            _hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
         public IActionResult GetPeliculas()
@@ -35,7 +39,7 @@ namespace ApiPeliculas.Controllers
             return Ok(listaPeliculasDto);
         }
 
-        [Route ("GetPelicula")]
+        [Route("GetPelicula")]
         [HttpGet]
         //[HttpGet("{PeliculaId:int}", Name = "GetPelicula")]
         public IActionResult GetPelicula(int PeliculaId)
@@ -50,29 +54,85 @@ namespace ApiPeliculas.Controllers
             return Ok(itemPeliculaDto);
         }
 
+        [Route("BuscarPelicula")]
+        [HttpGet]
+        public IActionResult Buscar(string nombre)
+        {
+            try
+            {
+                var resultado = _ctPeli.BuscarPelicula(nombre);
+                if (resultado.Any())
+                {
+                    return Ok(resultado);
+                }
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error recuperando datos de la aplicación.");
+            }
+        }
+
+
         [Route("CrearPelicula")]
         //FromBody obtiene lo que llega en el body del envio.
         [HttpPost]
-        public IActionResult CrearPelicula([FromBody] PeliculaDTO PeliculaDTO)
+        public IActionResult CrearPelicula([FromForm] PeliculaCreateDTO peliculaCreateDTO)
         {
-            if (PeliculaDTO==null)
+            if (peliculaCreateDTO == null)
             {
                 return BadRequest(ModelState);
             }
-            if (_ctPeli.ExistePelicula(PeliculaDTO.Nombre))
+            if (_ctPeli.ExistePelicula(peliculaCreateDTO.Nombre))
             {
                 ModelState.AddModelError("", "La Pelicula ya existe...");
                 return StatusCode(404, ModelState);
             }
 
-            var Pelicula = _mapper.Map<Pelicula>(PeliculaDTO);
+            //Subida de archivos
+            var archivo = peliculaCreateDTO.Foto;
+            string rutaPrincipal = _hostingEnvironment.WebRootPath;
+            var archivos = HttpContext.Request.Form.Files;
+            if (archivo.Length > 0)
+            {
+                //Nueva imagen
+                var nombreFoto = Guid.NewGuid().ToString();
+                var subidas = Path.Combine(rutaPrincipal, @"fotos");
+                var extension = Path.GetExtension(archivos[0].FileName);
+                using (var fileStream = new FileStream(Path.Combine(subidas, nombreFoto + extension), FileMode.Create))
+                {
+                    archivos[0].CopyTo(fileStream);
+                }
+                peliculaCreateDTO.RutaImagen = @"\fotos\" + nombreFoto + extension;
+            }
+
+            //mapeo de peliculas
+            var Pelicula = _mapper.Map<Pelicula>(peliculaCreateDTO);
             if (!_ctPeli.CrearPelicula(Pelicula))
             {
                 ModelState.AddModelError("", $"Algo salió mal guardando el registro {Pelicula.Nombre}");
                 return StatusCode(500, ModelState);
             }
+
             //http code 201, y devuelve último registro creado.
-            return CreatedAtRoute("GetPelicula", new { PeliculaId = Pelicula.Id}, Pelicula);
+            return CreatedAtRoute("CrearPelicula", new { PeliculaId = Pelicula.Id }, Pelicula);
+        }
+
+        [HttpGet("GetPeliculasEnCategoria/{categoriaId:int}")]
+        public IActionResult GetPeliculasEnCategoria(int categoriaId)
+        {
+            var listaPeliculas = _ctPeli.GetPeliculasEnCategoria(categoriaId);
+            if (listaPeliculas == null)
+            {
+                return NotFound();
+            }
+
+            var itemPelicula = new List<PeliculaDTO>();
+            foreach (var item in listaPeliculas)
+            {
+                itemPelicula.Add(_mapper.Map<PeliculaDTO>(item));
+            }
+            return Ok(itemPelicula);
         }
 
         [HttpPatch("{PeliculaId:int}", Name = "ActualizarPelicula")]

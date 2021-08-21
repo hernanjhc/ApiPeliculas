@@ -12,7 +12,6 @@ namespace ApiPeliculas.Models.DTOs
     {
         [Required(ErrorMessage = "El campo es obligatorio.")]
         public string Nombre { get; set; }
-        [Required(ErrorMessage = "El campo es obligatorio.")]
         public string RutaImagen { get; set; }
         //campo de tipo de subida de archivo
         [Required(ErrorMessage = "El campo es obligatorio.")] 
