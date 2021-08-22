@@ -16,6 +16,7 @@ namespace ApiPeliculas.Data
         //DbSet se requiere para crear las tablas...
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Pelicula> Pelicula { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
 
         
     }

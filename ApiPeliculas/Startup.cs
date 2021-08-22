@@ -37,6 +37,7 @@ namespace ApiPeliculas
             /*Inyeccion de dependencias de Interfaz*/
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IPeliculaRepository, PeliculaRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             /*Añade automapper*/
             services.AddAutoMapper(typeof(PeliculasMappers));
