@@ -1,4 +1,99 @@
 1 - Swashbuckle.aspnetcore desde nuget
 2 - Startup.cs
+services.AddSwaggerGen(c =>
+services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("ApiPeliculas", new OpenApiInfo { Title = "API Películas", Version = "v1" });
+                var archivoXmlComentarios = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var rutaApiComentarios = Path.Combine(AppContext.BaseDirectory, archivoXmlComentarios);
+                c.IncludeXmlComments(rutaApiComentarios);
+            });
+
+en Configure
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/ApiPeliculas/swagger.json", "ApiPeliculas v1"));
+
+/// Agregar comentarios en controlador. Antes de cada metodo.
+
+/// <summary>
+/// Borrar una categoria.
+/// </summary>
+/// <param name="categoriaId"></param>
+/// <returns></returns>
+
+Editar proyecto ApiPeliculas.cs
+compilacion
+salida
+Tildar archivo de documentacion XML:
+ApiPeliculas.xml
+
+Solucionar advertencias (CS1591...)... Por ejemplo en
+Modelo Categoria
+Intelisense sugiere: Suprimir o configurar incidencias
+Suprimir 
+En origen
+
+O sino... Editar proyecto ApiPeliculas.cs
+Compilacion
+Errores y advertencias
+Suprimir las advertencias
+agregar 1591
+
+Agregar información a la API en Startup.cs 
+//Documentacion API
+services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("ApiPeliculas", new OpenApiInfo
+    {
+        Title = "API Películas",
+        Version = "v1",
+        Description = "Backend películas",
+        Contact = new OpenApiContact()
+        {
+            Email = "hernan_jhc@hotmail.com",
+            Name = "jhc",
+            Url = new Uri("https://mipaginaweb.com")
+        },
+        License = new OpenApiLicense()
+        {
+            Name = "MIT License",
+            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+        }
+    });
+    var archivoXmlComentarios = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var rutaApiComentarios = Path.Combine(AppContext.BaseDirectory, archivoXmlComentarios);
+    c.IncludeXmlComments(rutaApiComentarios);
+});
+
+Personalizar cod de respuestas
+Sobre cada metodo del controlador
+/// <summary>
+/// Obtener todas las categorias
+/// </summary>
+/// <returns></returns>
+[HttpGet]
+[ProducesResponseType(200, Type =typeof(List<CategoriaDTO>))]
+[ProducesResponseType(400)]
+public IActionResult GetCategorias()
+
+/// <summary>
+/// Obtener una categoria individual
+/// </summary>
+/// <param name="categoriaId">Este es el id de la categoria</param>
+/// <returns></returns>
+[Route ("GetCategoria")]
+[HttpGet]
+[ProducesResponseType(200, Type = typeof(CategoriaDTO))]
+[ProducesResponseType(404)]
+[ProducesDefaultResponseType)]
+//[HttpGet("{categoriaId:int}", Name = "GetCategoria")]
+public IActionResult GetCategoria(int categoriaId)
+{
 
 
+Se puede crear codigo de respuesta gral para la clase
+namespace ApiPeliculas.Controllers
+{
+[Route("api/[controller]")]
+[ApiController]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
