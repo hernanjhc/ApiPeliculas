@@ -98,7 +98,6 @@ C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Microsoft.IdentityM
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -142,3 +141,4 @@ C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\obj\Debug\net5.0\ApiPeliculas.dll
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\obj\Debug\net5.0\ref\ApiPeliculas.dll
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\obj\Debug\net5.0\ApiPeliculas.pdb
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\obj\Debug\net5.0\ApiPeliculas.genruntimeconfig.cache
+C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -16,6 +16,7 @@ namespace ApiPeliculas.Repositories
         {
             _bd = bd;
         }
+
         public bool ExisteUsuario(string usuario)
         {
             if (_bd.Usuario.Any(x => x.UsuarioA.ToLower().Trim()==usuario.ToLower().Trim()))

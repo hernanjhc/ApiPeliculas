@@ -1,0 +1,4 @@
+1 - Swashbuckle.aspnetcore desde nuget
+2 - Startup.cs
+
+
