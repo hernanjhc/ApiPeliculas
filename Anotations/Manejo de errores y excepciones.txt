@@ -1,0 +1,56 @@
+Sobre como mostrar errores y manejo de excepciones en la API no controladas.
+
+launchSettings.json
+
+"profiles": {
+    "IIS Express": {
+	"ASPNETCORE_ENVIRONMENT": "Development"
+	"ASPNETCORE_ENVIRONMENT": "Production"
+segun corresponda
+
+Opcion 1. Aplicable a cada controlador y cada metodo
+En metodo de controlador
+try
+{
+	logica
+}
+catch (Exception)
+{
+    return StatusCode(500, "Error generado");
+}
+
+Opcion 2 - solucion manera global
+Startup.cs Configure
+
+if (env.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/ApiPeliculasCategorias/swagger.json", "Api Categorias Peliculas v1");
+        c.SwaggerEndpoint("/swagger/ApiPeliculas/swagger.json", "Api Peliculas v1");
+        c.SwaggerEndpoint("/swagger/ApiPeliculasUsuarios/swagger.json", "Api Usuarios Peliculas v1");
+        c.RoutePrefix = "";
+    });
+
+}
+else
+{
+    app.UseExceptionHandler(builder =>
+    {
+        builder.Run( 
+            async context => {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                var error = context.Features.Get<IExceptionHandlerFeature>();
+                if (error != null)
+                {
+                    context.Response.AddApplicationError(error.Error.Message);
+                    await context.Response.WriteAsync(error.Error.Message);
+                }
+        });
+    });
+}
+
+Agregar carpeta Helpers y en ella
+ AddApplicationError.cs
