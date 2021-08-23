@@ -15,6 +15,7 @@ namespace ApiPeliculas.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "ApiPeliculas")]
     public class PeliculasController : Controller
     {
         private readonly IPeliculaRepository _ctPeli;

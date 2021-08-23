@@ -16,7 +16,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,7 +63,60 @@ namespace ApiPeliculas
             //Documentacion API
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("ApiPeliculas", new OpenApiInfo { Title = "API Películas", Version = "v1" });
+                c.SwaggerDoc("ApiPeliculasCategorias", new OpenApiInfo
+                {
+                    Title = "API Categoria Películas",
+                    Version = "v1",
+                    Description = "Backend películas",
+                    Contact = new OpenApiContact()
+                    {
+                        Email = "hernan_jhc@hotmail.com",
+                        Name = "jhc",
+                        Url = new Uri("https://mipaginaweb.com")
+                    },
+                    License = new OpenApiLicense()
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                    }
+                });
+                c.SwaggerDoc("ApiPeliculas", new OpenApiInfo
+                {
+                    Title = "API Películas",
+                    Version = "v1",
+                    Description = "Backend películas",
+                    Contact = new OpenApiContact()
+                    {
+                        Email = "hernan_jhc@hotmail.com",
+                        Name = "jhc",
+                        Url = new Uri("https://mipaginaweb.com")
+                    },
+                    License = new OpenApiLicense()
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                    }
+                });
+                c.SwaggerDoc("ApiPeliculasUsuarios", new OpenApiInfo
+                {
+                    Title = "API Usuarios Películas",
+                    Version = "v1",
+                    Description = "Backend películas",
+                    Contact = new OpenApiContact()
+                    {
+                        Email = "hernan_jhc@hotmail.com",
+                        Name = "jhc",
+                        Url = new Uri("https://mipaginaweb.com")
+                    },
+                    License = new OpenApiLicense()
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                    }
+                });
+                var archivoXmlComentarios = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var rutaApiComentarios = Path.Combine(AppContext.BaseDirectory, archivoXmlComentarios);
+                c.IncludeXmlComments(rutaApiComentarios);
             });
 
             /*Estandar*/
@@ -75,7 +130,13 @@ namespace ApiPeliculas
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/ApiPeliculas/swagger.json", "ApiPeliculas v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/ApiPeliculasCategorias/swagger.json", "Api Categorias Peliculas v1");
+                    c.SwaggerEndpoint("/swagger/ApiPeliculas/swagger.json", "Api Peliculas v1");
+                    c.SwaggerEndpoint("/swagger/ApiPeliculasUsuarios/swagger.json", "Api Usuarios Peliculas v1");
+                });
+                
             }
 
             //app.UseSwagger();

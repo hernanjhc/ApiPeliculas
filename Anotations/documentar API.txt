@@ -97,3 +97,82 @@ namespace ApiPeliculas.Controllers
 [Route("api/[controller]")]
 [ApiController]
 [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+
+Multiple documentacion API.
+Con el fin de que cada controlador tenga una pagina de documentacion
+En configure
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/ApiPeliculasCategorias/swagger.json", "Api Categorias Peliculas v1");
+    c.SwaggerEndpoint("/swagger/ApiPeliculas/swagger.json", "Api Peliculas v1");
+    c.SwaggerEndpoint("/swagger/ApiPeliculasUsuarios/swagger.json", "Api Usuarios Peliculas v1");
+});
+
+En ConfigureServices
+//Documentacion API
+services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("ApiPeliculasCategorias", new OpenApiInfo
+    {
+        Title = "API Categoria Películas",
+        Version = "v1",
+        Description = "Backend películas",
+        Contact = new OpenApiContact()
+        {
+            Email = "hernan_jhc@hotmail.com",
+            Name = "jhc",
+            Url = new Uri("https://mipaginaweb.com")
+        },
+        License = new OpenApiLicense()
+        {
+            Name = "MIT License",
+            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+        }
+    });
+    c.SwaggerDoc("ApiPeliculas", new OpenApiInfo
+    {
+        Title = "API Películas",
+        Version = "v1",
+        Description = "Backend películas",
+        Contact = new OpenApiContact()
+        {
+            Email = "hernan_jhc@hotmail.com",
+            Name = "jhc",
+            Url = new Uri("https://mipaginaweb.com")
+        },
+        License = new OpenApiLicense()
+        {
+            Name = "MIT License",
+            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+        }
+    });
+    c.SwaggerDoc("ApiPeliculasUsuarios", new OpenApiInfo
+    {
+        Title = "API Usuarios Películas",
+        Version = "v1",
+        Description = "Backend películas",
+        Contact = new OpenApiContact()
+        {
+            Email = "hernan_jhc@hotmail.com",
+            Name = "jhc",
+            Url = new Uri("https://mipaginaweb.com")
+        },
+        License = new OpenApiLicense()
+        {
+            Name = "MIT License",
+            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+        }
+    });
+    var archivoXmlComentarios = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var rutaApiComentarios = Path.Combine(AppContext.BaseDirectory, archivoXmlComentarios);
+    c.IncludeXmlComments(rutaApiComentarios);
+});
+
+
+En cada controlador
+namespace ApiPeliculas.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [ApiExplorerSettings(GroupName = "ApiPeliculasCategorias")]
