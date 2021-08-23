@@ -117,10 +117,39 @@ namespace ApiPeliculas
                 var archivoXmlComentarios = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var rutaApiComentarios = Path.Combine(AppContext.BaseDirectory, archivoXmlComentarios);
                 c.IncludeXmlComments(rutaApiComentarios);
+
+                /*Implementa Autenticación en la documentación*/
+                c.AddSecurityDefinition("Bearer",
+                    new OpenApiSecurityScheme
+                    {
+                        Description = "Autenticación JWT(Bearer)",
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "Bearer"
+                    });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        }, new List<string>()
+                    }
+                });
+
+                /*Estandar*/
+                services.AddControllers();
+
+                /*Damos soporte para CORS*/
+                services.AddCors();
             });
 
-            /*Estandar*/
             services.AddControllers();
+            /*Damos soporte para CORS*/
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -135,8 +164,9 @@ namespace ApiPeliculas
                     c.SwaggerEndpoint("/swagger/ApiPeliculasCategorias/swagger.json", "Api Categorias Peliculas v1");
                     c.SwaggerEndpoint("/swagger/ApiPeliculas/swagger.json", "Api Peliculas v1");
                     c.SwaggerEndpoint("/swagger/ApiPeliculasUsuarios/swagger.json", "Api Usuarios Peliculas v1");
+                    c.RoutePrefix = "";
                 });
-                
+
             }
 
             //app.UseSwagger();
@@ -144,12 +174,17 @@ namespace ApiPeliculas
 
             app.UseRouting();
 
+            /*Autenticacion y Autorizacion*/
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            /*Damos soporte para cors*/
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
         }
     }
 }

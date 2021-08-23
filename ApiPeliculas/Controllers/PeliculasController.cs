@@ -2,6 +2,7 @@
 using ApiPeliculas.Models.DTOs;
 using ApiPeliculas.Repositories.IRepositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace ApiPeliculas.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "ApiPeliculas")]
@@ -28,6 +30,9 @@ namespace ApiPeliculas.Controllers
             _mapper = mapper;
             _hostingEnvironment = hostingEnvironment;
         }
+
+
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetPeliculas()
         {
@@ -41,6 +46,7 @@ namespace ApiPeliculas.Controllers
         }
 
         [Route("GetPelicula")]
+        [AllowAnonymous]
         [HttpGet]
         //[HttpGet("{PeliculaId:int}", Name = "GetPelicula")]
         public IActionResult GetPelicula(int PeliculaId)
@@ -56,6 +62,7 @@ namespace ApiPeliculas.Controllers
         }
 
         [Route("BuscarPelicula")]
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Buscar(string nombre)
         {
@@ -119,6 +126,8 @@ namespace ApiPeliculas.Controllers
             return CreatedAtRoute("CrearPelicula", new { PeliculaId = Pelicula.Id }, Pelicula);
         }
 
+
+        [AllowAnonymous]
         [HttpGet("GetPeliculasEnCategoria/{categoriaId:int}")]
         public IActionResult GetPeliculasEnCategoria(int categoriaId)
         {

@@ -1,0 +1,71 @@
+Intercambio de recursos de origen cruzado	CORS
+Mecanismo que usa cabeceras adicionales para permitir que un obtenga
+permiso para acceder a recursos seleccionados desde un servidor,
+en un origen distinto(dominio) al que pertenece.
+
+Se debe habilitar CORS, para permitir usar la api desde un dominio diferente.
+
+Habilitar CORS
+
+Startup.cs
+services.AddCors();
+
+/*Damos soporte para cors*/
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+Autenticación y Autorización
+Startup
+/*Dependencia del token*/
+services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+	
+/*Autenticacion y Autorizacion*/
+app.UseAuthentication();
+app.UseAuthorization();	
+
+Controllers
+namespace ApiPeliculas.Controllers
+{
+    [Authorize]
+	... Bloquea todos los metodos
+	
+	En caso de liberar algun metodo
+	[AllowAnonymous]	//Siempre antes del verbo
+	[HttpGet]
+	public IActionResult GetCategorias()
+
+
+Implementar autenticacion en la documentacion
+//Documentacion API
+services.AddSwaggerGen(c =>
+
+/*Implementa Autenticación en la documentación*/
+c.AddSecurityDefinition("Bearer",
+    new OpenApiSecurityScheme
+    {
+        Description = "Autenticación JWT(Bearer)",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer"
+    });
+
+c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+    {
+        new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference
+            {
+                Id = "Bearer",
+                Type = ReferenceType.SecurityScheme
+            }
+        }, new List<string>()
+    }
+});
