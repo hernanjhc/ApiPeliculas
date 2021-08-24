@@ -2,6 +2,8 @@
 	Servidor IIS / Modulos / AspNetCoreModulev2
 	Si hace falta. Descargar dotnet.microsoft.com/download/dotnet-core/3.1
 	hosting bundle.
+	Ver en descargas dotnet-hosting-3.1.18-win
+	https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-aspnetcore-3.1.18-windows-hosting-bundle-installer
 2 - En la API.
 	LaunchSetting.json verificar que ASPNETCORE_ENVIRONMENT : "Development"
 	 En Startup, modificar el app_UseSwaggerUI
