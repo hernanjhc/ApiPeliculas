@@ -1,0 +1,23 @@
+ 1 - Instalar modulo net core en servidor
+	Servidor IIS / Modulos / AspNetCoreModulev2
+	Si hace falta. Descargar dotnet.microsoft.com/download/dotnet-core/3.1
+	hosting bundle.
+2 - En la API.
+	LaunchSetting.json verificar que ASPNETCORE_ENVIRONMENT : "Development"
+	 En Startup, modificar el app_UseSwaggerUI
+	 /*Para la publicación en IIS descomentar estas líneas y comentar las de arriba*/
+     options.SwaggerEndpoint("/apiPeliculas/swagger/ApiPeliculasCategorias/swagger.json", "API Categorías Películas");
+	 
+     options.SwaggerEndpoint("/{NombreCarpetaEnIIS}/swagger/ApiPeliculasCategorias/swagger.json", "API Categorías Películas");
+	 
+     options.SwaggerEndpoint("/apiPeliculas/swagger/ApiPeliculas/swagger.json", "API Películas");
+     options.SwaggerEndpoint("/apiPeliculas/swagger/ApiPeliculasUsuarios/swagger.json", "API Usuarios Películas");
+	 
+3 - Agregar Sitio en IIS
+
+4 - Recompilar proyecto.
+	Publicar proyecto.
+	Copiar proyecto de la carpeta destino a la carpeta creada en IIS.
+5 - Probar primero qu este online el IIS
+	localhost en navegador
+	Luego ingresar a localhost/apiPeliculas/index.html
