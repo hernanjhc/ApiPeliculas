@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ApiPeliculas.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "ApiPeliculasUsuarios")]

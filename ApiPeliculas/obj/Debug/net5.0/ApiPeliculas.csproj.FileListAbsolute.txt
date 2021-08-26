@@ -143,3 +143,4 @@ C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\obj\Debug\net5.0\ApiPeliculas.pdb
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\obj\Debug\net5.0\ApiPeliculas.genruntimeconfig.cache
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\ApiPeliculas.xml
+C:\Proyectos\Test\ApiPeliculas\ApiPeliculas\bin\Debug\net5.0\log4net.dll

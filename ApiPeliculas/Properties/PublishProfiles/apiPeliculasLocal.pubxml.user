@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Sitios\apiPeliculas</_PublishTargetUrl>
+    <History>True|2021-08-25T23:31:38.7582618Z;False|2021-08-25T20:31:12.2493457-03:00;True|2021-08-24T18:10:39.4631165-03:00;True|2021-08-24T17:19:04.0522441-03:00;False|2021-08-24T17:11:30.2044220-03:00;False|2021-08-24T17:10:07.9115989-03:00;False|2021-08-24T17:09:47.6845840-03:00;True|2021-08-24T16:47:16.9807839-03:00;True|2021-08-24T16:41:20.3666466-03:00;</History>
+  </PropertyGroup>
+</Project>

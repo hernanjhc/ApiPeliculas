@@ -25,6 +25,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 
 namespace ApiPeliculas
 {
@@ -157,8 +158,9 @@ namespace ApiPeliculas
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)//   º, ILoggerFactory loggerFactory)
         {
+            //loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -168,6 +170,11 @@ namespace ApiPeliculas
                     c.SwaggerEndpoint("/swagger/ApiPeliculasCategorias/swagger.json", "Api Categorias Peliculas v1");
                     c.SwaggerEndpoint("/swagger/ApiPeliculas/swagger.json", "Api Peliculas v1");
                     c.SwaggerEndpoint("/swagger/ApiPeliculasUsuarios/swagger.json", "Api Usuarios Peliculas v1");
+
+                    /*Publicar en IIS*/
+                    //c.SwaggerEndpoint("apiPeliculas/swagger/ApiPeliculasCategorias/swagger.json", "API Categorías Películas");
+                    //c.SwaggerEndpoint("apiPeliculas/swagger/ApiPeliculas/swagger.json", "API Películas");
+                    //c.SwaggerEndpoint("apiPeliculas/swagger/ApiPeliculasUsuarios/swagger.json", "API Usuarios Películas");
                     c.RoutePrefix = "";
                 });
 
