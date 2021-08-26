@@ -121,7 +121,7 @@ namespace PeliculasWeb.Repositories
             if (respuesta.StatusCode == System.Net.HttpStatusCode.OK)    //retorna 200
             {
                 var jsonString = await respuesta.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<IEnumerable>(jsonString);
+                return JsonConvert.DeserializeObject<IEnumerable<T>>(jsonString);
             }
             else
             {
