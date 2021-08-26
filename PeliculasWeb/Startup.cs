@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PeliculasWeb.Repositories;
+using PeliculasWeb.Repositories.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,11 @@ namespace PeliculasWeb
 
             /*Damos soporte para CORS*/
             services.AddCors();
+
+            //Agregar Repositorios como inyección de dependencias
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped<IPeliculaRepository, PeliculaRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

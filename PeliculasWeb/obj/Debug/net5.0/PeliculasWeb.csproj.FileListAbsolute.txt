@@ -355,3 +355,4 @@ C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\PeliculasWeb.dll
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\ref\PeliculasWeb.dll
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\PeliculasWeb.pdb
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\PeliculasWeb.genruntimeconfig.cache
+C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\bin\Debug\net5.0\Newtonsoft.Json.dll

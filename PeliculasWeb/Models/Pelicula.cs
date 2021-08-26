@@ -1,30 +1,25 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ApiPeliculas.Models
+namespace PeliculasWeb.Models
 {
     public class Pelicula
     {
-        [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "El nombre es obligatorio.")]
         public string Nombre { get; set; }
-        //public string RutaImagen { get; set; }
-        //se guardará la imagen para implementar web app.-
         public byte[] RutaImagen { get; set; }
         public string Descripcion { get; set; }
         public string Duracion { get; set; }
         public enum TipoClasificacion { Siete, Trece, Dieciseis, Dieciocho }
         public TipoClasificacion Clasificacion { get; set; }
         public DateTime FechaCreacion { get; set; }
-        
+
         //relacion con categoria
         public int categoriaId { get; set; }
-        [ForeignKey("categoriaId")]
         public Categoria Categoria { get; set; }
     }
 }
