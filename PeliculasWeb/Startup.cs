@@ -24,6 +24,12 @@ namespace PeliculasWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //Llamados http
+            services.AddHttpClient();
+
+            /*Damos soporte para CORS*/
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +58,13 @@ namespace PeliculasWeb
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //Damos soporte para cors: Desde API permite conectarse de un dominio diferente
+            //Dar acceso a cors: Desde App para usar cors
+            app.UseCors(x => 
+            x.AllowAnyOrigin()  //acceder desde cualquier origen
+            .AllowAnyMethod()   //acceder desde cualquier método
+            .AllowAnyHeader());
         }
     }
 }

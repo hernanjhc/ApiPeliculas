@@ -1,0 +1,9 @@
+Ejemplos de rutas en Api...
+https://localhost:44325/api/Categorias
+https://localhost:44325/api/Categorias/GetCategoria?categoriaId=1
+
+Crear folder utilidades
+CT.cs
+//crear rutas static
+public static string UrlBaseApi = "https://localhost:44325/";
+public static string RutaCategoriasApi = UrlBaseApi + "api/Categorias/";
