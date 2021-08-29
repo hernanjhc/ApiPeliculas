@@ -37,5 +37,51 @@ namespace PeliculasWeb.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]  //Controla que esta peticion llegue desde el form Create
+        public async Task<IActionResult> Create(Categoria categoria)
+        {
+            if (ModelState.IsValid)
+            {
+                await _repoCategoria.CrearAsync(CT.RutaCategoriasApi, categoria);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        //[ValidateAntiForgeryToken]  //Controla que esta peticion llegue desde el form Create
+        public async Task<IActionResult> Edit(int? id)
+        {
+            Categoria itemCategoria = new Categoria();
+
+            if (id==null)
+            {
+                return NotFound();
+            }
+
+            itemCategoria = await _repoCategoria.GetAsync(CT.RutaCategoriasApi, id.GetValueOrDefault());
+            if (itemCategoria == null)
+            {
+                return NotFound();
+            }
+
+            return View(itemCategoria);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]  //Controla que esta peticion llegue desde el form Create
+        public async Task<IActionResult> Update(Categoria categoria)
+        {
+            if (ModelState.IsValid)
+            {
+                await _repoCategoria.ActualizarAsync(CT.RutaCategoriasApi + categoria.Id, categoria);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View();
+        }
     }
 }

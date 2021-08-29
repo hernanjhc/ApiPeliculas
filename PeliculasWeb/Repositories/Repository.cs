@@ -36,8 +36,8 @@ namespace PeliculasWeb.Repositories
 
             var cliente = _clientFactory.CreateClient();
             HttpResponseMessage respuesta = await cliente.SendAsync(peticion);
+            
             //validar respuesta de la api
-
             if (respuesta.StatusCode == System.Net.HttpStatusCode.NoContent)    //retorna 204
             {
                 return true;

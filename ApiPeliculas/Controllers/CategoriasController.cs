@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace ApiPeliculas.Controllers
 {
     //[Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "ApiPeliculasCategorias")]
@@ -52,13 +53,13 @@ namespace ApiPeliculas.Controllers
         /// </summary>
         /// <param name="categoriaId">Este es el id de la categoria</param>
         /// <returns></returns>
-        [Route ("GetCategoria")]
+        //[Route ("GetCategoria")]
         [AllowAnonymous]
-        [HttpGet]
+        //[HttpGet]
         [ProducesResponseType(200, Type = typeof(CategoriaDTO))]
         [ProducesResponseType(404)]
         [ProducesDefaultResponseType]
-        //[HttpGet("{categoriaId:int}", Name = "GetCategoria")]
+        [HttpGet("{categoriaId:int}", Name = "GetCategoria")]
         public IActionResult GetCategoria(int categoriaId)
         {
             var itemCategoria = _ctRepo.GetCategoria(categoriaId);
@@ -76,7 +77,8 @@ namespace ApiPeliculas.Controllers
         /// </summary>
         /// <param name="categoriaDTO"></param>
         /// <returns></returns>
-        [Route("CrearCategoria")]
+        [AllowAnonymous]
+        //[Route("CrearCategoria")]
         //FromBody obtiene lo que llega en el body del envio.
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(CategoriaDTO))]
