@@ -10,12 +10,14 @@ namespace ApiPeliculas.Models.DTOs
 {
     public class PeliculaCreateDTO
     {
+        public string Id { get; set; }
         [Required(ErrorMessage = "El campo es obligatorio.")]
         public string Nombre { get; set; }
-        public string RutaImagen { get; set; }
+        //public string RutaImagen { get; set; }
+        public byte[] RutaImagen { get; set; }
         //campo de tipo de subida de archivo
-        [Required(ErrorMessage = "El campo es obligatorio.")] 
-        public IFormFile Foto { get; set; }
+        //[Required(ErrorMessage = "El campo es obligatorio.")] 
+        //public IFormFile Foto { get; set; }
         [Required(ErrorMessage = "El campo es obligatorio.")]
         public string Descripcion { get; set; }
         [Required(ErrorMessage = "El campo es obligatorio.")]

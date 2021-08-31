@@ -81,49 +81,50 @@ namespace ApiPeliculas.Controllers
             }
         }
 
-
-        [Route("CrearPelicula")]
+        [AllowAnonymous]
+        //[Route("CrearPelicula")]
         //FromBody obtiene lo que llega en el body del envio.
         [HttpPost]
-        public IActionResult CrearPelicula([FromForm] PeliculaCreateDTO peliculaCreateDTO)
+        public IActionResult CrearPelicula([FromForm] PeliculaDTO peliculaDTO)
         {
-            if (peliculaCreateDTO == null)
+            if (peliculaDTO == null)
             {
                 return BadRequest(ModelState);
             }
-            if (_ctPeli.ExistePelicula(peliculaCreateDTO.Nombre))
+            if (_ctPeli.ExistePelicula(peliculaDTO.Nombre))
             {
                 ModelState.AddModelError("", "La Pelicula ya existe...");
                 return StatusCode(404, ModelState);
             }
 
             //Subida de archivos
-            var archivo = peliculaCreateDTO.Foto;
-            string rutaPrincipal = _hostingEnvironment.WebRootPath;
-            var archivos = HttpContext.Request.Form.Files;
-            if (archivo.Length > 0)
-            {
-                //Nueva imagen
-                var nombreFoto = Guid.NewGuid().ToString();
-                var subidas = Path.Combine(rutaPrincipal, @"fotos");
-                var extension = Path.GetExtension(archivos[0].FileName);
-                using (var fileStream = new FileStream(Path.Combine(subidas, nombreFoto + extension), FileMode.Create))
-                {
-                    archivos[0].CopyTo(fileStream);
-                }
-                peliculaCreateDTO.RutaImagen = @"\fotos\" + nombreFoto + extension;
-            }
+            //var archivo = peliculaCreateDTO.Foto;
+            //string rutaPrincipal = _hostingEnvironment.WebRootPath;
+            //var archivos = HttpContext.Request.Form.Files;
+            //if (archivo.Length > 0)
+            //{
+            //    //Nueva imagen
+            //    var nombreFoto = Guid.NewGuid().ToString();
+            //    var subidas = Path.Combine(rutaPrincipal, @"fotos");
+            //    var extension = Path.GetExtension(archivos[0].FileName);
+            //    using (var fileStream = new FileStream(Path.Combine(subidas, nombreFoto + extension), FileMode.Create))
+            //    {
+            //        archivos[0].CopyTo(fileStream);
+            //    }
+            //    peliculaCreateDTO.RutaImagen = @"\fotos\" + nombreFoto + extension;
+            //}
 
             //mapeo de peliculas
-            var Pelicula = _mapper.Map<Pelicula>(peliculaCreateDTO);
-            if (!_ctPeli.CrearPelicula(Pelicula))
+            var pelicula = _mapper.Map<Pelicula>(peliculaDTO);
+            if (!_ctPeli.CrearPelicula(pelicula))
             {
-                ModelState.AddModelError("", $"Algo salió mal guardando el registro {Pelicula.Nombre}");
+                ModelState.AddModelError("", $"Algo salió mal guardando el registro {pelicula.Nombre}");
                 return StatusCode(500, ModelState);
             }
 
             //http code 201, y devuelve último registro creado.
-            return CreatedAtRoute("CrearPelicula", new { PeliculaId = Pelicula.Id }, Pelicula);
+            //return CreatedAtRoute("CrearPelicula", new { PeliculaId = Pelicula.Id }, Pelicula);
+            return CreatedAtRoute("GetPelicula", new { PeliculaId = pelicula.Id }, pelicula);
         }
 
 

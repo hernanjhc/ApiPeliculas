@@ -1,21 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PeliculasWeb.Models;
+using PeliculasWeb.Models.ViewModels;
 using PeliculasWeb.Repositories.IRepositories;
 using PeliculasWeb.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PeliculasWeb.Controllers
 {
     public class PeliculasController : Controller
     {
         private readonly IPeliculaRepository _repoPelicula;
+        private readonly ICategoriaRepository _repoCategoria;
 
-        public PeliculasController(IPeliculaRepository repoPelicula)
+        public PeliculasController(IPeliculaRepository repoPelicula, ICategoriaRepository repoCategoria)
         {
             _repoPelicula = repoPelicula;
+            _repoCategoria = repoCategoria;
         }
 
         [HttpGet]
@@ -27,28 +33,74 @@ namespace PeliculasWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTodasPeliculas()
         {
-            return Json( 
-                new { data = await _repoPelicula.GetTodoAsync(CT.RutaPeliculasApi)}
+            return Json(
+                new { data = await _repoPelicula.GetTodoAsync(CT.RutaPeliculasApi) }
                 );
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+
+            IEnumerable<Categoria> npList = (IEnumerable<Categoria>)await _repoCategoria.GetTodoAsync(CT.RutaCategoriasApi);
+
+            PeliculasVM objVM = new PeliculasVM()
+            {
+                ListaCategorias = npList.Select(i => new SelectListItem
+                {
+                    Text = i.Nombre,
+                    Value = i.Id.ToString()
+                }),
+                Pelicula = new Pelicula()
+            };
+
+            return View(objVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]  //Controla que esta peticion llegue desde el form Create
-        public async Task<IActionResult> Create(Pelicula Pelicula)
+        public async Task<IActionResult> Create(Pelicula pelicula)
         {
+            IEnumerable<Categoria> npList = (IEnumerable<Categoria>)await _repoCategoria.GetTodoAsync(CT.RutaCategoriasApi);
+            
+            PeliculasVM objVM = new PeliculasVM()
+            {
+                ListaCategorias = npList.Select(i => new SelectListItem
+                {
+                    Text = i.Nombre,
+                    Value = i.Id.ToString()
+                }),
+            
+                Pelicula = new Pelicula()
+            };
+
             if (ModelState.IsValid)
             {
-                await _repoPelicula.CrearAsync(CT.RutaPeliculasApi, Pelicula);
+                var files = HttpContext.Request.Form.Files;
+                if (files.Count > 0)
+                {
+                    byte[] p1 = null;
+                    using (var fs1 = files[0].OpenReadStream())
+                    {
+                        using (var ms1 = new MemoryStream())
+                        {
+                            fs1.CopyTo(ms1);
+                            p1 = ms1.ToArray();
+                        }
+                    }
+
+                    pelicula.RutaImagen = p1;
+                }
+                else
+                {
+                    return View(objVM);
+                }
+
+                await _repoPelicula.CrearAsync(CT.RutaPeliculasApi, pelicula);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View();
+            return View(objVM);
         }
 
         [HttpGet]
@@ -57,7 +109,7 @@ namespace PeliculasWeb.Controllers
         {
             Pelicula itemPelicula = new Pelicula();
 
-            if (id==null)
+            if (id == null)
             {
                 return NotFound();
             }

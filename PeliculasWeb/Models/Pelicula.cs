@@ -11,7 +11,7 @@ namespace PeliculasWeb.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "El nombre es obligatorio.")]
         public string Nombre { get; set; }
-        public byte[] RutaImagen { get; set; }
+        public byte[] RutaImagen { get; set; }  //en sql es varbinary(MAX)
         public string Descripcion { get; set; }
         public string Duracion { get; set; }
         public enum TipoClasificacion { Siete, Trece, Dieciseis, Dieciocho }
