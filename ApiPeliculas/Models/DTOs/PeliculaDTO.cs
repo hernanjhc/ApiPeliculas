@@ -25,7 +25,7 @@ namespace ApiPeliculas.Models.DTOs
 
         //relacion con categoria
         public int categoriaId { get; set; }
-        [ForeignKey("categoriaId")]
+        //[ForeignKey("categoriaId")]
         public Categoria Categoria { get; set; }
     }
 }

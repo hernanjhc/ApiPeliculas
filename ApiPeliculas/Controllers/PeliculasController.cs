@@ -15,14 +15,15 @@ using System.Threading.Tasks;
 namespace ApiPeliculas.Controllers
 {
     //[Authorize]
-    [Route("api/[controller]")]
+    [Route("api/Peliculas")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "ApiPeliculas")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class PeliculasController : Controller
     {
         private readonly IPeliculaRepository _ctPeli;
-        private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IMapper _mapper;
 
         public PeliculasController(IPeliculaRepository ctPeli, IMapper mapper, IWebHostEnvironment hostingEnvironment)
         {
@@ -45,10 +46,10 @@ namespace ApiPeliculas.Controllers
             return Ok(listaPeliculasDto);
         }
 
-        [Route("GetPelicula")]
+//        [Route("GetPelicula")]
         [AllowAnonymous]
-        [HttpGet]
-        //[HttpGet("{PeliculaId:int}", Name = "GetPelicula")]
+        //[HttpGet]
+        [HttpGet("{PeliculaId:int}", Name = "GetPelicula")]
         public IActionResult GetPelicula(int PeliculaId)
         {
             var itemPelicula = _ctPeli.GetPelicula(PeliculaId);
@@ -82,10 +83,12 @@ namespace ApiPeliculas.Controllers
         }
 
         [AllowAnonymous]
-        //[Route("CrearPelicula")]
-        //FromBody obtiene lo que llega en el body del envio.
         [HttpPost]
-        public IActionResult CrearPelicula([FromForm] PeliculaDTO peliculaDTO)
+        [ProducesResponseType(201, Type = typeof(PeliculaDTO))]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult CrearPelicula([FromBody] PeliculaDTO peliculaDTO)
         {
             if (peliculaDTO == null)
             {
