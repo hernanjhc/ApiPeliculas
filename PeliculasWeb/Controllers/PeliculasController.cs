@@ -180,7 +180,7 @@ namespace PeliculasWeb.Controllers
                 return Json(new { success = true, message = "Boraddo correctamente" });
             }
 
-            return Json(new { success = false, message = "No se pudo borar" });
+            return Json(new { success = false, message = "No se pudo borrar" });
         }
     }
 }
