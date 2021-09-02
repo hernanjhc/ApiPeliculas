@@ -46,9 +46,31 @@ namespace PeliculasWeb.Repositories
             }
         }
 
-        public Task<bool> RegisterAsync(string url, UsuarioM itemCrear)
+        public async Task<bool> RegisterAsync(string url, UsuarioM itemCrear)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            if (itemCrear != null)
+            {
+                request.Content = new StringContent(
+                        JsonConvert.SerializeObject(itemCrear), Encoding.UTF8, "application/json"
+                    );
+            }
+            else
+            {
+                return false;
+            }
+
+            var cliente = _clientFactory.CreateClient();
+            HttpResponseMessage respuesta = await cliente.SendAsync(request);
+
+            if (respuesta.StatusCode == System.Net.HttpStatusCode.OK)    //retorna 200
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
