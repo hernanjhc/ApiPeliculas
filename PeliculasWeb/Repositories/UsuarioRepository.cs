@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PeliculasWeb.Repositories
 {
-    public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
+    public class UsuarioRepository : Repository<UsuarioU>, IUsuarioRepository
     {
         private readonly IHttpClientFactory _clientFactory;
         public UsuarioRepository(IHttpClientFactory clientFactory) : base(clientFactory)

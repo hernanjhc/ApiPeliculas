@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PeliculasWeb.Models
 {
-    public class Usuario
+    public class UsuarioU
     {
         public int Id { get; set; }
         public string UsuarioA { get; set; }

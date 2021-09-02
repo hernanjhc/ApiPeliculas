@@ -14,5 +14,9 @@ namespace PeliculasWeb.Utilities
         public static string RutaUsuariosApi = UrlBaseApi + "api/Usuarios/";
 
         //Faltan más rutas
+        public static string RutaPeliculasEnCategoriaApi = UrlBaseApi + "api/Peliculas/GetPeliculasEnCategoria/";
+        public static string RutaPeliculasApiBusqueda = UrlBaseApi + "api/Peliculas/Buscar?nombre=";
+
+
     }
 }

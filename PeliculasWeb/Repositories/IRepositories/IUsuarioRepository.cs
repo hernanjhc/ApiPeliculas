@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PeliculasWeb.Repositories.IRepositories
 {
-    public interface IUsuarioRepository : IRepository<Usuario>
+    public interface IUsuarioRepository : IRepository<UsuarioU>
     {
     }
 }

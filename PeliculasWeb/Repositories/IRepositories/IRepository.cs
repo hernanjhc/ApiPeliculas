@@ -11,6 +11,8 @@ namespace PeliculasWeb.Repositories.IRepositories
     public interface IRepository<T> where T : class
     {
         Task<IEnumerable> GetTodoAsync(string url);
+        Task<IEnumerable> GetPeliculasEnCategoriaAsync(string url, int categoriaId);
+        Task<IEnumerable> Buscar(string url, string nombre);
         Task<T> GetAsync(string url, int Id);
         Task<bool> CrearAsync(string url, T itemCrear);
         Task<bool> ActualizarAsync(string url, T itemActualizar);
