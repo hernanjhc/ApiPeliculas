@@ -9,7 +9,7 @@ namespace ApiPeliculas.Models.DTOs
     public class UsuarioAuthLoginDTO
     {
         [Required(ErrorMessage = "El usuario es obligatorio.")]
-        public string UsuarioA { get; set; }
+        public string Usuario { get; set; }
 
         [Required(ErrorMessage = "El usuario es obligatorio.")]
         public string Password { get; set; }

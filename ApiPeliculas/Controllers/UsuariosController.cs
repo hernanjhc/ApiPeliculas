@@ -81,11 +81,10 @@ namespace ApiPeliculas.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
-        [Route("Login")]
+        [HttpPost("Login")]
         public IActionResult Login(UsuarioAuthLoginDTO usuarioAuthLoginDTO)
         {
-            var usuarioDesdeRepo = _userRepo.Login(usuarioAuthLoginDTO.UsuarioA, usuarioAuthLoginDTO.Password);
+            var usuarioDesdeRepo = _userRepo.Login(usuarioAuthLoginDTO.Usuario, usuarioAuthLoginDTO.Password);
 
             if (usuarioDesdeRepo == null)
             {
@@ -115,6 +114,7 @@ namespace ApiPeliculas.Controllers
 
             return Ok(new 
             {
+                usuario = claims[1].Value.ToString(),
                 token = tokenHandler.WriteToken(token)
             });
         }
