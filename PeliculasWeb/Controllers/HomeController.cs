@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PeliculasWeb.Models;
+using PeliculasWeb.Repositories.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,15 +13,24 @@ namespace PeliculasWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IAccountRepository _repoAccount;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAccountRepository repoAccount)
         {
             _logger = logger;
+            _repoAccount = repoAccount;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            UsuarioM usuario = new UsuarioM();
+            return View(usuario);
         }
 
         public IActionResult Privacy()
