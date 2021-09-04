@@ -6,6 +6,19 @@
 
 <h1 class="text-center">Acceso de usuarios</h1>
 
+<div class="row mt-4">
+    <div class="col-sm-12">
+        @if (TempData["alert"] != null)
+        {
+            //Bootstrap. alert dismisible. https://getbootstrap.com/docs/5.1/components/alerts/
+            <h5><div class="alert alert-danger alert-dismissible fade show" role="alert"></div></h5>
+            <strong>@TempData["alert"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        }
+    </div>
+</div>
+
 <div class="row">
     <div class="col-sm-6 offset-3">
         <form asp-action="Login">

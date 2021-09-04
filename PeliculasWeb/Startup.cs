@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +51,9 @@ namespace PeliculasWeb
             services.AddScoped<IPeliculaRepository, PeliculaRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+
+            //Por el control de sesión en _layout 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //configurar sesion
             services.AddSession(options =>

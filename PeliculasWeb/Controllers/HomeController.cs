@@ -44,7 +44,7 @@ namespace PeliculasWeb.Controllers
             if (ModelState.IsValid)
             {
                 UsuarioM objUser = await _repoAccount.LoginAsync(CT.RutaUsuariosApi + "Login", obj);
-                if (objUser.Token == null)
+                if (objUser == null)
                 {
                     TempData["alert"] = "Los datos son incorrectos";
                     return View();//vuelve al formulario
@@ -68,6 +68,13 @@ namespace PeliculasWeb.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            HttpContext.Session.SetString("JWToken", "");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
