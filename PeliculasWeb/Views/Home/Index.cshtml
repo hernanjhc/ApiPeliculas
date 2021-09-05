@@ -1,8 +1,88 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model PeliculasWeb.Models.ViewModels.IndexVM
+@{
+    ViewData["Title"] = "Página de Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@*Controla alert*@
+<div class="row mt-4">
+    <div class="col-sm-12">
+        @if (TempData["alert"] != null)
+        {
+            //Bootstrap. alert dismisible. https://getbootstrap.com/docs/5.1/components/alerts/
+            <h5><div class="alert alert-danger alert-dismissible fade show" role="alert"></div></h5>
+            <strong>@TempData["alert"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 offset-3">
+        <h2 class="text-center">Últimas Películas</h2>
+    </div>
+</div>
+
+@*"row mt-2" Margen de arriba de 2*@
+@*Se mueve desde la izquierda 4 columnas*@
+<div class="row mt-2">
+    <div class="col-sm-4 offset-4">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorías
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @foreach (var item in Model.ListaCategorias)
+                {
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexCategoria"
+                       asp-route-id="@item.Id"> @item.Nombre</a>
+                }
+            </div>
+        </div>
+    </div>
+    @*float-right flotar a la derecha*@
+    @*my-2 Por arriba y por abajo de 2*@
+    @*my-lg-0 En dispositivos grandes como PC no existe margen*@
+    @*mr-sm2 margen derecho en dispositivos pequeños de 2*@
+    <div class="col-sm-4 float-right">
+        <form asp-action="IndexBusqueda" class="form-inline my-2 my-lg-0">
+            <input type="search" name="nombre" placeholder="Buscar Película" class="form-control mr-sm2" />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
+    </div>
+</div>
+
+@*Nueva fila con margen top de 3*@
+<div class="row mt-3">
+    @if (Model.ListaPeliculas.Count() > 0)
+    {
+        @foreach (var item in Model.ListaPeliculas)
+        {
+            //Cada pelicula ocupa 4 columnas
+            <div class="col-sm-4">
+                <div class="card" style="width:18rem;">
+                    @*Muestra imagen de pelicula de BD*@
+                    @if (item.RutaImagen != null)
+                    {
+                        var base64 = Convert.ToBase64String(item.RutaImagen);
+                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                        <img src="@imgsrc" class="card-img-top" />
+                    }
+
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Nombre</h5>
+                        <p class="card-text">Duración: @item.Duracion</p>
+                        <p class="card-text">Clasificación: @item.Clasificacion</p>
+                        <p class="card-text">Fecha de Creación: @item.FechaCreacion</p>
+                        <p class="card-text">Descripción: @item.Descripcion</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No hay películas para mostrar</p>
+    }
 </div>

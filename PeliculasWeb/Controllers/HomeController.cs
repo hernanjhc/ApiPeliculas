@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PeliculasWeb.Models;
+using PeliculasWeb.Models.ViewModels;
 using PeliculasWeb.Repositories.IRepositories;
 using PeliculasWeb.Utilities;
 using System;
@@ -19,16 +20,39 @@ namespace PeliculasWeb.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IAccountRepository _repoAccount;
+        private readonly IPeliculaRepository _repoPelicula;
+        private readonly ICategoriaRepository _repoCategoria;
 
-        public HomeController(ILogger<HomeController> logger, IAccountRepository repoAccount)
+        public HomeController(ILogger<HomeController> logger, IAccountRepository repoAccount, 
+            IPeliculaRepository repoPelicula, ICategoriaRepository repoCategoria)
         {
             _logger = logger;
             _repoAccount = repoAccount;
+            _repoPelicula = repoPelicula;
+            _repoCategoria = repoCategoria;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IndexVM listaPeliculasCategorias = new IndexVM()
+            {
+                ListaCategorias = (IEnumerable<Categoria>)await _repoCategoria.GetTodoAsync(CT.RutaCategoriasApi),
+                ListaPeliculas = (IEnumerable<Pelicula>)await _repoPelicula.GetTodoAsync(CT.RutaPeliculasApi)
+            };
+
+            return View(listaPeliculasCategorias);
+        }
+
+        public async Task<IActionResult> IndexCategoria(int id)
+        {
+            var pelisEnCategoria = await _repoPelicula.GetPeliculasEnCategoriaAsync(CT.RutaPeliculasEnCategoriaApi, id);
+            return View(pelisEnCategoria);
+        }
+
+        public async Task<IActionResult> IndexBusqueda(string nombre)
+        {
+            var pelisEncontradas = await _repoPelicula.Buscar(CT.RutaPeliculasApiBusqueda, nombre);
+            return View(pelisEncontradas);
         }
 
         [HttpGet]
