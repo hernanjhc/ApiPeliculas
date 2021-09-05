@@ -62,9 +62,9 @@ namespace ApiPeliculas.Controllers
             return Ok(itemPeliculaDto);
         }
 
-        [Route("BuscarPelicula")]
+        //[Route("BuscarPelicula")]
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("Buscar")]
         public IActionResult Buscar(string nombre)
         {
             try

@@ -325,7 +325,6 @@ C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\bin\Debug\net5.0\ru\Microsoft.CodeAn
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\PeliculasWeb.csproj.AssemblyReference.cache
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\PeliculasWeb.GeneratedMSBuildEditorConfig.editorconfig
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\PeliculasWeb.AssemblyInfoInputs.cache
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\PeliculasWeb.AssemblyInfo.cs
@@ -411,3 +410,4 @@ C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Usuario
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\Registro.cshtml.g.cs
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\IndexCategoria.cshtml.g.cs
+C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\IndexBusqueda.cshtml.g.cs
