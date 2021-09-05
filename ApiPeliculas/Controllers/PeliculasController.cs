@@ -82,7 +82,7 @@ namespace ApiPeliculas.Controllers
             }
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]  Se quita permitir acceso a metodo sin autenticacion.
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(PeliculaDTO))]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -149,6 +149,7 @@ namespace ApiPeliculas.Controllers
             return Ok(itemPelicula);
         }
 
+        //[AllowAnonymous]  Se quita permitir acceso a metodo sin autenticacion.
         [HttpPatch("{PeliculaId:int}", Name = "ActualizarPelicula")]
         public IActionResult ActualizarPelicula(int PeliculaId, [FromBody] PeliculaDTO PeliculaDTO)
         {
@@ -168,6 +169,7 @@ namespace ApiPeliculas.Controllers
             return NoContent();
         }
 
+        //[AllowAnonymous]  Se quita permitir acceso a metodo sin autenticacion.
         [HttpDelete("{PeliculaId:int}", Name = "BorrarPelicula")]
         public IActionResult BorrarPelicula(int PeliculaId)
         {

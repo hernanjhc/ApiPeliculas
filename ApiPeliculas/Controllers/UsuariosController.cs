@@ -33,6 +33,7 @@ namespace ApiPeliculas.Controllers
             _config = config;
         }
 
+        //[AllowAnonymous]  Se quita permitir acceso a metodo sin autenticacion.
         [HttpGet]
         public IActionResult GetUsuarios()
         {
@@ -46,6 +47,7 @@ namespace ApiPeliculas.Controllers
             return Ok(listaUsuariosDTO);
         }
 
+        //[AllowAnonymous]  Se quita permitir acceso a metodo sin autenticacion.
         [HttpGet]
         [Route("GetUsuario")]
         public IActionResult GetUsuario(int usuarioId)

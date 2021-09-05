@@ -77,7 +77,7 @@ namespace ApiPeliculas.Controllers
         /// </summary>
         /// <param name="categoriaDTO"></param>
         /// <returns></returns>
-        [AllowAnonymous]
+        //[AllowAnonymous]  Se quita permitir acceso a metodo sin autenticacion.
         //[Route("CrearCategoria")]
         //FromBody obtiene lo que llega en el body del envio.
         [HttpPost]
@@ -114,6 +114,7 @@ namespace ApiPeliculas.Controllers
         /// <param name="categoriaId"></param>
         /// <param name="categoriaDTO"></param>
         /// <returns></returns>
+        //[AllowAnonymous]  Se quita permitir acceso a metodo sin autenticacion.
         [HttpPatch("{categoriaId:int}", Name = "ActualizarCategoria")]
         [ProducesResponseType(204)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -141,6 +142,7 @@ namespace ApiPeliculas.Controllers
         /// </summary>
         /// <param name="categoriaId"></param>
         /// <returns></returns>
+        //[AllowAnonymous]  Se quita permitir acceso a metodo sin autenticacion.
         [HttpDelete("{categoriaId:int}", Name = "BorrarCategoria")]
         [ProducesResponseType(201, Type = typeof(CategoriaDTO))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
