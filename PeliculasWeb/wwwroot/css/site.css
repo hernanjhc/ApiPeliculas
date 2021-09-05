@@ -69,3 +69,14 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.jumbotron{
+    padding:0; /*Quita margenes*/
+}
+
+/*Cuando el ancho minimo sea menor a 576px */
+@media (min-width: 576px){
+    .jumbotron {
+        padding: 0; /*Quita margenes*/
+    }
+}
