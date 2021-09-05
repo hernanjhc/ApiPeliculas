@@ -409,3 +409,4 @@ C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Pelicul
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Peliculas\Edit.cshtml.g.cs
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Usuarios\Index.cshtml.g.cs
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
+C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\Registro.cshtml.g.cs

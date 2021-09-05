@@ -1,0 +1,30 @@
+﻿@model PeliculasWeb.Models.UsuarioM
+@{
+    ViewData["Title"] = "Registro nuevo usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Registro de nuevo usuario</h1>
+
+<div class="row">
+    <div class="col-sm-6 offset-3">
+        <form method="post" asp-action="Registro">
+            @*Valida campos vacios*@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label for="Usuario">Usuario:</label>
+                <input type="text" asp-for="Usuario" class="form-control" placeholder="Ingrese el usuario" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="contrasenia">Contraseña:</label>
+                <input type="password" asp-for="Password" class="form-control" placeholder="Ingrese la contraseña" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+        </form>
+    </div>
+</div>
+
+

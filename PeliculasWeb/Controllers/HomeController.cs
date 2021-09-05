@@ -77,6 +77,26 @@ namespace PeliculasWeb.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult Registro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Registro(UsuarioM obj)
+        {
+            bool result = await _repoAccount.RegisterAsync(CT.RutaUsuariosApi + "Registro", obj);
+            if (result == false)
+            {
+                return View();
+            }
+            TempData["alert"] = "Registro correctos";
+            return RedirectToAction("Login");
+
+        }
+
         public IActionResult Privacy()
         {
             return View();
