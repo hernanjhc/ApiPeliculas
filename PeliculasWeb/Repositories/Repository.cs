@@ -20,7 +20,7 @@ namespace PeliculasWeb.Repositories
             _clientFactory = clientFactory;
         }
 
-        public async Task<bool> ActualizarAsync(string url, T itemActualizar)
+        public async Task<bool> ActualizarAsync(string url, T itemActualizar, string token)
         {
             var peticion = new HttpRequestMessage(HttpMethod.Patch, url);
             if (itemActualizar != null)
@@ -35,6 +35,13 @@ namespace PeliculasWeb.Repositories
             }
 
             var cliente = _clientFactory.CreateClient();
+
+            //Validar token
+            if (token != null && token.Length != 0)
+            {
+                cliente.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+
             HttpResponseMessage respuesta = await cliente.SendAsync(peticion);
 
             //validar respuesta de la api
@@ -48,11 +55,18 @@ namespace PeliculasWeb.Repositories
             }
         }
 
-        public async Task<bool> BorrarAsync(string url, int Id)
+        public async Task<bool> BorrarAsync(string url, int Id, string token)
         {
             var peticion = new HttpRequestMessage(HttpMethod.Delete, url + Id);
 
             var cliente = _clientFactory.CreateClient();
+
+            //Validar token
+            if (token != null && token.Length != 0)
+            {
+                cliente.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+
             HttpResponseMessage respuesta = await cliente.SendAsync(peticion);
 
             if (respuesta.StatusCode == System.Net.HttpStatusCode.NoContent)    //retorna 204
@@ -65,7 +79,7 @@ namespace PeliculasWeb.Repositories
             }
         }
 
-        public async Task<bool> CrearAsync(string url, T itemCrear)
+        public async Task<bool> CrearAsync(string url, T itemCrear, string token)
         {
             var peticion = new HttpRequestMessage(HttpMethod.Post, url);
             if (itemCrear != null)
@@ -80,6 +94,13 @@ namespace PeliculasWeb.Repositories
             }
 
             var cliente = _clientFactory.CreateClient();
+
+            //Validar token
+            if (token != null && token.Length != 0)
+            {
+                cliente.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+
             HttpResponseMessage respuesta = await cliente.SendAsync(peticion);
             //validar respuesta de la api
 

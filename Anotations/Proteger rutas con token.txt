@@ -1,0 +1,59 @@
+Proteger rutas.
+
+1 - IRepository.cs
+Rutas protegidas, post, patch, delete
+public interface IRepository<T> where T : class
+    {
+        Task<IEnumerable> GetTodoAsync(string url);
+        Task<IEnumerable> GetPeliculasEnCategoriaAsync(string url, int categoriaId);
+        Task<IEnumerable> Buscar(string url, string nombre);
+        Task<T> GetAsync(string url, int Id);
+        Task<bool> CrearAsync(string url, T itemCrear, string token);
+        Task<bool> ActualizarAsync(string url, T itemActualizar, string token);
+        Task<bool> BorrarAsync(string url, int Id, string token);
+    }
+	
+Modificar firmas en Repository.cs
+public async Task<bool> ActualizarAsync(string url, T itemActualizar, string token)
+public async Task<bool> BorrarAsync(string url, int Id, string token)
+public async Task<bool> CrearAsync(string url, T itemCrear, string token)
+
+En PeliculasController...
+await _repoPelicula.CrearAsync(CT.RutaPeliculasApi, pelicula,
+                    HttpContext.Session.GetString("JWToken"));
+await _repoPelicula.ActualizarAsync(CT.RutaPeliculasApi + pelicula.Id, pelicula,
+                    HttpContext.Session.GetString("JWToken"));
+await _repoPelicula.BorrarAsync(CT.RutaPeliculasApi, id,
+                    HttpContext.Session.GetString("JWToken"));
+
+lo mismo para categorias...
+lo mismo para usuarios...
+
+Modificar layout.cshtml
+Proteger
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categorías</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Peliculas" asp-action="Index">Peliculas</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+</li>
+						
+						
+@if (User.Identity.IsAuthenticated)
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categorías</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Peliculas" asp-action="Index">Peliculas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+    </li>
+}
+
+
+						

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PeliculasWeb.Models;
 using PeliculasWeb.Models.ViewModels;
@@ -96,7 +97,8 @@ namespace PeliculasWeb.Controllers
                     return View(objVM);
                 }
 
-                await _repoPelicula.CrearAsync(CT.RutaPeliculasApi, pelicula);
+                await _repoPelicula.CrearAsync(CT.RutaPeliculasApi, pelicula,
+                    HttpContext.Session.GetString("JWToken"));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -163,7 +165,8 @@ namespace PeliculasWeb.Controllers
                     pelicula.RutaImagen = peliculaFromDb.RutaImagen;
                 }
 
-                await _repoPelicula.ActualizarAsync(CT.RutaPeliculasApi + pelicula.Id, pelicula);
+                await _repoPelicula.ActualizarAsync(CT.RutaPeliculasApi + pelicula.Id, pelicula,
+                    HttpContext.Session.GetString("JWToken"));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -173,7 +176,8 @@ namespace PeliculasWeb.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var status = await _repoPelicula.BorrarAsync(CT.RutaPeliculasApi, id);
+            var status = await _repoPelicula.BorrarAsync(CT.RutaPeliculasApi, id,
+                    HttpContext.Session.GetString("JWToken"));
 
             if (status)
             {

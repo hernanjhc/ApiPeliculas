@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PeliculasWeb.Models;
 using PeliculasWeb.Repositories.IRepositories;
 using PeliculasWeb.Utilities;
@@ -44,7 +45,8 @@ namespace PeliculasWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _repoCategoria.CrearAsync(CT.RutaCategoriasApi, categoria);
+                await _repoCategoria.CrearAsync(CT.RutaCategoriasApi, categoria,
+                    HttpContext.Session.GetString("JWToken"));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -77,7 +79,8 @@ namespace PeliculasWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _repoCategoria.ActualizarAsync(CT.RutaCategoriasApi + categoria.Id, categoria);
+                await _repoCategoria.ActualizarAsync(CT.RutaCategoriasApi + categoria.Id, categoria,
+                    HttpContext.Session.GetString("JWToken"));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -87,7 +90,8 @@ namespace PeliculasWeb.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var status = await _repoCategoria.BorrarAsync(CT.RutaCategoriasApi, id);
+            var status = await _repoCategoria.BorrarAsync(CT.RutaCategoriasApi, id,
+                    HttpContext.Session.GetString("JWToken"));
 
             if (status)
             {

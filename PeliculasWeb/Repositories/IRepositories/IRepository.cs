@@ -14,8 +14,8 @@ namespace PeliculasWeb.Repositories.IRepositories
         Task<IEnumerable> GetPeliculasEnCategoriaAsync(string url, int categoriaId);
         Task<IEnumerable> Buscar(string url, string nombre);
         Task<T> GetAsync(string url, int Id);
-        Task<bool> CrearAsync(string url, T itemCrear);
-        Task<bool> ActualizarAsync(string url, T itemActualizar);
-        Task<bool> BorrarAsync(string url, int Id);
+        Task<bool> CrearAsync(string url, T itemCrear, string token);
+        Task<bool> ActualizarAsync(string url, T itemActualizar, string token);
+        Task<bool> BorrarAsync(string url, int Id, string token);
     }
 }
