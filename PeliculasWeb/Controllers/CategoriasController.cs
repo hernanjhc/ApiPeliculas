@@ -95,7 +95,7 @@ namespace PeliculasWeb.Controllers
 
             if (status)
             {
-                return Json(new { success = true, message = "Boraddo correctamente" });
+                return Json(new { success = true, message = "Borado correctamente" });
             }
 
             return Json(new { success = false, message = "No se pudo borar" });

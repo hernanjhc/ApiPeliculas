@@ -411,3 +411,4 @@ C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\Lo
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\Registro.cshtml.g.cs
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\IndexCategoria.cshtml.g.cs
 C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\Razor\Views\Home\IndexBusqueda.cshtml.g.cs
+C:\Proyectos\Test\ApiPeliculas\PeliculasWeb\obj\Debug\net5.0\PeliculasWeb.csproj.AssemblyReference.cache
